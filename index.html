@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONNX.js Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js"></script>
+</head>
+<body>
+    <h1>ONNX.js Example</h1>
+    <script>
+        async function runModel() {
+            // モデルのロード
+            const session = new onnx.InferenceSession();
+            await session.loadModel("./model.onnx");
+
+            // 入力データの準備
+            const input = new onnx.Tensor(new Float32Array([/* your input data */]), 'float32', [1, /* input dimension */]);
+
+            // 推論の実行
+            const output = await session.run([input]);
+            console.log(output);
+        }
+
+        // ページがロードされたらモデルを実行
+        window.onload = runModel;
+    </script>
+</body>
+</html>
